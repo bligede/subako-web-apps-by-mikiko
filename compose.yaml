@@ -1,0 +1,70 @@
+name: subako-foundation-simulation
+services:
+  db:
+    image: timescale/timescaledb:latest-pg17@sha256:b56a3f51991df1f79d0c1a0841cad5c5fa8058fdd6a3ee6886394a6d4c174538
+    environment:
+      POSTGRES_USER: subako_owner
+      POSTGRES_DB: subako
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_owner_password
+    secrets: [db_owner_password]
+    volumes: [subako_pg:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U subako_owner -d subako"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  bootstrap:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    command: [python, /app/tools/container.py, bootstrap]
+    environment:
+      SUBAKO_APP_ENV: development
+      SUBAKO_SEED_DEMO: "true"
+      SUBAKO_TIMESCALE_ENABLED: "true"
+    secrets: [db_owner_password, db_api_password, db_ingest_password, demo_password]
+    depends_on:
+      db: {condition: service_healthy}
+    restart: "no"
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      SUBAKO_APP_ENV: development
+      SUBAKO_DATA_MODE: simulation
+      SUBAKO_TIMESCALE_ENABLED: "true"
+      SUBAKO_COOKIE_SECURE: "false"
+      SUBAKO_SIMULATOR_ENABLED: "true"
+      SUBAKO_SIMULATOR_INTERVAL_SECONDS: "10"
+      SUBAKO_ALLOWED_ORIGINS: '["http://127.0.0.1:8080","http://localhost:8080"]'
+    secrets: [db_api_password, db_ingest_password]
+    depends_on:
+      bootstrap: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports: ["127.0.0.1:8080:80"]
+    depends_on:
+      api: {condition: service_healthy}
+    healthcheck:
+      test: [CMD-SHELL, "wget -q -O /dev/null http://127.0.0.1/"]
+      interval: 15s
+      timeout: 4s
+      retries: 5
+    restart: unless-stopped
+secrets:
+  db_owner_password: {file: ./.local/secrets/db_owner_password}
+  db_api_password: {file: ./.local/secrets/db_api_password}
+  db_ingest_password: {file: ./.local/secrets/db_ingest_password}
+  demo_password: {file: ./.local/secrets/demo_password}
+volumes:
+  subako_pg:

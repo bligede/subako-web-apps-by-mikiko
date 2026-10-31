@@ -1,0 +1,59 @@
+{
+  "release": "0.1.0-alpha.1",
+  "executed_at_utc": "2026-10-30T23:14:14.289717+00:00",
+  "status": "PASS_WITH_DOCUMENTED_LIMITS",
+  "checks": {
+    "python_syntax": {
+      "status": "PASS"
+    },
+    "dependency_consistency": {
+      "status": "PASS",
+      "detail": "No broken requirements found."
+    },
+    "compose_static": {
+      "status": "PASS",
+      "detail": "YAML parsed; secret separation and four digest pins agree. Not docker compose config/build/up."
+    },
+    "documentation_links": {
+      "status": "PASS"
+    },
+    "local_secret_exclusion": {
+      "status": "PASS",
+      "detail": "Credential, database and installed dependency paths ignored by Git."
+    },
+    "sqlite_backup_restore": {
+      "status": "PASS",
+      "table_counts": {
+        "alembic_version": 1,
+        "alert_acknowledgements": 0,
+        "alerts": 4,
+        "audit_events": 1,
+        "devices": 8,
+        "ledger_entries": 8,
+        "login_attempts": 0,
+        "mutation_keys": 0,
+        "permissions": 10,
+        "role_permissions": 30,
+        "roles": 4,
+        "sensor_readings": 2400,
+        "sessions": 0,
+        "sites": 2,
+        "telemetry_raw": 300,
+        "user_roles": 7,
+        "user_site_access": 7,
+        "users": 4
+      },
+      "sites_with_verified_ledger": 2,
+      "existing_target_overwrite": "REJECTED"
+    },
+    "running_local_stack": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:5173",
+      "detail": "Built shell, proxied readiness, actual demo login, dashboard read, logout. No credentials included."
+    },
+    "docker_timescale_execution": {
+      "status": "NOT_RUN",
+      "detail": "Compose plugin unavailable and Docker engine inactive on this host; revision 0003 and container stack unverified."
+    }
+  }
+}

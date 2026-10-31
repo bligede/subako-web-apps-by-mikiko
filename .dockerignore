@@ -1,0 +1,14 @@
+.git
+.venv
+.local
+**/node_modules
+**/dist
+**/__pycache__
+**/.pytest_cache
+**/*.db
+**/*.db-shm
+**/*.db-wal
+**/tests
+evidence
+.env
+*.zip

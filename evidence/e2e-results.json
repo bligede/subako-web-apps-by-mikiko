@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "release": "0.1.0-alpha.1",
+  "executed_at_utc": "2026-10-30T16:33:25.701Z",
+  "checks": [
+    {
+      "name": "Real login/session",
+      "status": "PASS",
+      "detail": "Argon2-backed API login, HttpOnly cookie and authorized site grants"
+    },
+    {
+      "name": "REST and WebSocket updates",
+      "status": "PASS",
+      "detail": "Dashboard and chart use API; multiple committed simulator events received"
+    },
+    {
+      "name": "Site filter",
+      "status": "PASS",
+      "detail": "Changes authorized site, data query keys and scoped WebSocket subscription"
+    },
+    {
+      "name": "Gate detail",
+      "status": "PASS",
+      "detail": "Reads actual simulated telemetry; no fabricated interlock or actuator controls"
+    },
+    {
+      "name": "Ledger verification",
+      "status": "PASS",
+      "detail": "Backend computes SHA-256 chain verification; shared-database anchor limitation shown"
+    },
+    {
+      "name": "Alert mutation",
+      "status": "PASS",
+      "detail": "CSRF/idempotent acknowledgement persisted through API and refreshed"
+    },
+    {
+      "name": "Viewer restrictions",
+      "status": "PASS",
+      "detail": "Single-site account; no admin or simulator controls"
+    },
+    {
+      "name": "Authorized simulator scenario",
+      "status": "PASS",
+      "detail": "Technical admin applies overcurrent; simulator reports FAULT; normal recovery available"
+    },
+    {
+      "name": "PWA shell cache boundary",
+      "status": "PASS",
+      "detail": "9 static resources cached; no API, user or session responses"
+    },
+    {
+      "name": "Offline recovery without mutation replay",
+      "status": "PASS",
+      "detail": "Warm data shows STALE; cold offline reload serves shell; reconnect resumes GET/WS with no POST replay"
+    },
+    {
+      "name": "Responsive runtime",
+      "status": "PASS",
+      "detail": "21 actual React/API route-viewport cases at 360/390/768px"
+    },
+    {
+      "name": "Mobile navigation",
+      "status": "PASS",
+      "detail": "Lainnya drawer reaches device management"
+    },
+    {
+      "name": "Browser runtime",
+      "status": "PASS",
+      "detail": "No uncaught JavaScript errors"
+    },
+    {
+      "name": "PWA manifest",
+      "status": "PASS",
+      "detail": "Standalone manifest, install icons and active service worker"
+    },
+    {
+      "name": "Implemented OpenAPI",
+      "status": "PASS",
+      "detail": "22 implemented HTTP operations documented separately from approved target contract"
+    }
+  ],
+  "limits": [
+    "Simulation-only foundation. No MQTT, ChirpStack, hardware, command service or production commissioning tested.",
+    "E2E uses isolated SQLite test database; PostgreSQL roles/RLS tested in separate suite."
+  ]
+}
