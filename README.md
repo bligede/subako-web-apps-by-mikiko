@@ -1,6 +1,8 @@
 # SUBAKO Web-PWA · 0.1.0-alpha.1
 
-**by Mikiko Technology · Foundation + dashboard dengan simulated telemetry**
+**by Mikiko Technology · Dashboard admin PWA dengan simulated telemetry**
+
+Pembagian produk: **Flutter untuk pengguna lapangan, PWA untuk dashboard admin**. Keduanya bagian dari sistem SUBAKO. Lihat [lingkup produk dan integrasi](docs/PRODUCT-SCOPE.md). Implementasi PWA saat ini memakai FastAPI/PostgreSQL (SQLite lokal); aplikasi Flutter memakai Firebase. Login, akun dan data keduanya belum tersinkron. Dokumen lingkup mencatat target integrasi tanpa mengklaim backend bersama sudah berjalan.
 
 Implementasi ini melanjutkan paket arsitektur Revisi A yang telah disetujui dan tersedia sebagai artefak terpisah. Catatan persetujuan ada di [docs/APPROVAL.md](docs/APPROVAL.md). Source firmware dan engineering baseline dipertahankan.
 
